@@ -76,11 +76,8 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Club Logo & Title -->
             <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('about')">
-                <div class="grid grid-cols-2 gap-0.5 p-1 bg-slate-900 rounded-lg shadow-md w-10 h-10 flex-shrink-0">
-                    <div class="bg-cube-red rounded-sm"></div>
-                    <div class="bg-cube-blue rounded-sm"></div>
-                    <div class="bg-cube-yellow rounded-sm"></div>
-                    <div class="bg-cube-green rounded-sm"></div>
+                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-slate-200 shadow-sm bg-white">
+                    <img src="images/logo.jpg" alt="Edgemont Speedcubing Club Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <span class="font-display font-black text-lg sm:text-xl tracking-tight text-slate-900 block leading-tight">
@@ -130,34 +127,26 @@
     <section class="relative py-12 sm:py-16 bg-gradient-to-b from-white to-cube-bg border-b border-cube-border">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-cube-border text-slate-700 text-xs font-bold tracking-wider uppercase shadow-sm">
-                <span class="flex gap-1">
-                    <span class="w-2 h-2 rounded-full bg-cube-red"></span>
-                    <span class="w-2 h-2 rounded-full bg-cube-yellow"></span>
-                    <span class="w-2 h-2 rounded-full bg-cube-green"></span>
-                    <span class="w-2 h-2 rounded-full bg-cube-blue"></span>
-                </span>
-                Edgemont Jr/Sr High School
-            </div>
-
-            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight">
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight mb-8">
                 Edgemont <span class="text-cube-blue">Speedcubing</span> Club
             </h1>
 
-            <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-cube-border shadow-sm relative">
-                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 flex gap-1">
-                    <div class="w-3 h-3 bg-cube-red rounded-sm"></div>
-                    <div class="w-3 h-3 bg-cube-orange rounded-sm"></div>
-                    <div class="w-3 h-3 bg-cube-yellow rounded-sm"></div>
-                    <div class="w-3 h-3 bg-cube-green rounded-sm"></div>
-                    <div class="w-3 h-3 bg-cube-blue rounded-sm"></div>
+            <div class="max-w-3xl mx-auto bg-white p-8 sm:p-10 rounded-3xl border border-cube-border shadow-sm relative pt-10 my-8">
+                <!-- Spaced out accent squares -->
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 flex gap-2.5 bg-[#FAF8F5] px-4 py-1 rounded-full border border-cube-border/60 shadow-sm">
+                    <div class="w-3.5 h-3.5 bg-cube-red rounded-sm"></div>
+                    <div class="w-3.5 h-3.5 bg-cube-orange rounded-sm"></div>
+                    <div class="w-3.5 h-3.5 bg-cube-yellow rounded-sm"></div>
+                    <div class="w-3.5 h-3.5 bg-cube-green rounded-sm"></div>
+                    <div class="w-3.5 h-3.5 bg-cube-blue rounded-sm"></div>
                 </div>
-                <p class="text-lg sm:text-xl text-slate-800 font-semibold leading-relaxed">
+
+                <p class="text-lg sm:text-xl text-slate-800 font-semibold leading-relaxed pt-2">
                     "The Edgemont Speedcubing Club trains cubers, hosts competitions, and competes in High School cubing leagues for National level prizes."
                 </p>
             </div>
 
-            <div class="pt-2 flex flex-wrap justify-center gap-3">
+            <div class="pt-4 flex flex-wrap justify-center gap-3">
                 <button onclick="switchTab('accomplishments')" class="px-5 py-3 rounded-xl bg-cube-blue hover:bg-blue-700 text-white text-sm font-bold transition-all duration-200 flex items-center gap-2 shadow-md">
                     <i class="fa-solid fa-trophy text-xs text-cube-yellow"></i> View Accomplishments
                 </button>
@@ -506,11 +495,8 @@
     <footer class="bg-white border-t border-cube-border py-8 mt-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <div class="grid grid-cols-2 gap-0.5 p-0.5 bg-slate-900 rounded w-6 h-6">
-                    <div class="bg-cube-red rounded-xs"></div>
-                    <div class="bg-cube-blue rounded-xs"></div>
-                    <div class="bg-cube-yellow rounded-xs"></div>
-                    <div class="bg-cube-green rounded-xs"></div>
+                <div class="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 border border-slate-200 shadow-sm bg-white">
+                    <img src="images/logo.jpg" alt="Edgemont Speedcubing Club Logo" class="w-full h-full object-cover">
                 </div>
                 <span class="text-sm text-slate-700 font-bold">
                     Edgemont High School Speedcubing Club
