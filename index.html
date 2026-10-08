@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgemont Speedcubing Club | Edgemont High School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cube: {
+                            red: '#EF4444',
+                            blue: '#2563EB',
+                            yellow: '#F59E0B',
+                            green: '#10B981',
+                            orange: '#F97316',
+                            white: '#FFFFFF',
+                            bg: '#FAF8F5',
+                            cardBg: '#FFFFFF',
+                            subtleBg: '#F3EFEA',
+                            border: '#E5E0D8',
+                            text: '#1E293B',
+                            textMuted: '#64748B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #1E293B;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .tab-btn-active {
+            background-color: #FFFFFF;
+            color: #1E293B;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-bottom: 3px solid #2563EB;
+            font-weight: 700;
+        }
+
+        .cube-card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cube-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 4px 8px -4px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cube-blue selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-cube-border">
+        <!-- Rubik Accent Top Strip -->
+        <div class="h-1.5 w-full grid grid-cols-6">
+            <div class="bg-cube-red"></div>
+            <div class="bg-cube-orange"></div>
+            <div class="bg-cube-yellow"></div>
+            <div class="bg-cube-green"></div>
+            <div class="bg-cube-blue"></div>
+            <div class="bg-slate-300"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Club Logo & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('about')">
+                <div class="grid grid-cols-2 gap-0.5 p-1 bg-slate-900 rounded-lg shadow-md w-10 h-10 flex-shrink-0">
+                    <div class="bg-cube-red rounded-sm"></div>
+                    <div class="bg-cube-blue rounded-sm"></div>
+                    <div class="bg-cube-yellow rounded-sm"></div>
+                    <div class="bg-cube-green rounded-sm"></div>
+                </div>
+                <div>
+                    <span class="font-display font-black text-lg sm:text-xl tracking-tight text-slate-900 block leading-tight">
+                        EDGEMONT <span class="text-cube-blue">SPEEDCUBING</span>
+                    </span>
+                    <span class="text-[11px] text-slate-500 font-semibold tracking-wide block">Edgemont Jr/Sr High School</span>
+                </div>
+            </div>
+
+            <!-- Desktop Tab Navigation -->
+            <nav class="hidden md:flex space-x-1 bg-cube-subtleBg p-1.5 rounded-2xl border border-cube-border">
+                <button onclick="switchTab('about')" id="tab-btn-about" class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-cube-blue text-xs"></i> Overview
+                </button>
+                <button onclick="switchTab('accomplishments')" id="tab-btn-accomplishments" class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-cube-yellow text-xs"></i> Accomplishments
+                </button>
+                <button onclick="switchTab('future')" id="tab-btn-future" class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-cube-green text-xs"></i> Future Plans
+                </button>
+                <button onclick="switchTab('team')" id="tab-btn-team" class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-users text-cube-red text-xs"></i> Team Members
+                </button>
+                <button onclick="switchTab('contact')" id="tab-btn-contact" class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-envelope text-cube-orange text-xs"></i> Contact
+                </button>
+            </nav>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-slate-700 hover:text-slate-900 p-2.5 rounded-xl bg-white border border-cube-border shadow-sm">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 pt-2 border-t border-cube-border bg-white shadow-lg">
+            <div class="flex flex-col space-y-1">
+                <button onclick="switchTab('about'); toggleMobileMenu()" class="text-left px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-cube-subtleBg">Overview</button>
+                <button onclick="switchTab('accomplishments'); toggleMobileMenu()" class="text-left px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-cube-subtleBg">Accomplishments</button>
+                <button onclick="switchTab('future'); toggleMobileMenu()" class="text-left px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-cube-subtleBg">Future Plans</button>
+                <button onclick="switchTab('team'); toggleMobileMenu()" class="text-left px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-cube-subtleBg">Team Members</button>
+                <button onclick="switchTab('contact'); toggleMobileMenu()" class="text-left px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-cube-subtleBg">Contact Us</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative py-12 sm:py-16 bg-gradient-to-b from-white to-cube-bg border-b border-cube-border">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-cube-border text-slate-700 text-xs font-bold tracking-wider uppercase shadow-sm">
+                <span class="flex gap-1">
+                    <span class="w-2 h-2 rounded-full bg-cube-red"></span>
+                    <span class="w-2 h-2 rounded-full bg-cube-yellow"></span>
+                    <span class="w-2 h-2 rounded-full bg-cube-green"></span>
+                    <span class="w-2 h-2 rounded-full bg-cube-blue"></span>
+                </span>
+                Edgemont Jr/Sr High School
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight">
+                Edgemont <span class="text-cube-blue">Speedcubing</span> Club
+            </h1>
+
+            <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-cube-border shadow-sm relative">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 flex gap-1">
+                    <div class="w-3 h-3 bg-cube-red rounded-sm"></div>
+                    <div class="w-3 h-3 bg-cube-orange rounded-sm"></div>
+                    <div class="w-3 h-3 bg-cube-yellow rounded-sm"></div>
+                    <div class="w-3 h-3 bg-cube-green rounded-sm"></div>
+                    <div class="w-3 h-3 bg-cube-blue rounded-sm"></div>
+                </div>
+                <p class="text-lg sm:text-xl text-slate-800 font-semibold leading-relaxed">
+                    "The Edgemont Speedcubing Club trains cubers, hosts competitions, and competes in High School cubing leagues for National level prizes."
+                </p>
+            </div>
+
+            <div class="pt-2 flex flex-wrap justify-center gap-3">
+                <button onclick="switchTab('accomplishments')" class="px-5 py-3 rounded-xl bg-cube-blue hover:bg-blue-700 text-white text-sm font-bold transition-all duration-200 flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-trophy text-xs text-cube-yellow"></i> View Accomplishments
+                </button>
+                <button onclick="switchTab('team')" class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-cube-border text-sm font-bold transition-all duration-200 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-user-group text-xs text-cube-red"></i> Meet Leadership
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+
+        <!-- TAB 1: ABOUT / OVERVIEW -->
+        <section id="tab-about" class="tab-content space-y-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">Club Overview</h2>
+                <div class="h-1.5 w-16 bg-cube-blue mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <!-- Leadership Team Summary Below Description -->
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-cube-border shadow-sm space-y-4">
+                <div class="flex items-center gap-2 text-slate-900 font-display font-bold text-lg border-b border-cube-border pb-3">
+                    <i class="fa-solid fa-id-card text-cube-blue"></i> Leadership Team Overview
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
+                    <div class="p-4 bg-cube-subtleBg/60 rounded-2xl border border-cube-border/80 space-y-1">
+                        <span class="font-bold text-slate-900 text-base block">Kristen Chu</span>
+                        <span class="text-cube-blue font-bold text-xs uppercase tracking-wider block">President</span>
+                        <p class="text-slate-600 text-xs">Junior (11th Grade) &bull; Edgemont Jr/Sr High School</p>
+                    </div>
+                    <div class="p-4 bg-cube-subtleBg/60 rounded-2xl border border-cube-border/80 space-y-1">
+                        <span class="font-bold text-slate-900 text-base block">Christian Leung</span>
+                        <span class="text-cube-orange font-bold text-xs uppercase tracking-wider block">Event Coordinator</span>
+                        <p class="text-slate-600 text-xs">Sophomore (10th Grade) &bull; Stanford Online High School</p>
+                    </div>
+                    <div class="p-4 bg-cube-subtleBg/60 rounded-2xl border border-cube-border/80 space-y-1">
+                        <span class="font-bold text-slate-900 text-base block">Evie Leung</span>
+                        <span class="text-cube-green font-bold text-xs uppercase tracking-wider block">Marketing & Social Media</span>
+                        <p class="text-slate-600 text-xs">Senior (12th Grade) &bull; Edgemont Jr/Sr High School</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Pillars Cards with Rubik's Colors -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Pillar 1 -->
+                <div class="bg-white p-7 rounded-2xl border-t-4 border-t-cube-green border-x border-b border-cube-border cube-card-hover shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-cube-green flex items-center justify-center text-xl font-bold border border-emerald-200">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900">Training Cubers</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Helping members optimize solving methods (CFOP, Roux), refine finger tricks, learn algorithm sets, and lower solve averages.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-white p-7 rounded-2xl border-t-4 border-t-cube-orange border-x border-b border-cube-border cube-card-hover shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-cube-orange flex items-center justify-center text-xl font-bold border border-orange-200">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900">Hosting Competitions</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Organizing high-energy local tournaments bringing over 100 competitors from across the region to Edgemont High School.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-white p-7 rounded-2xl border-t-4 border-t-cube-blue border-x border-b border-cube-border cube-card-hover shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-cube-blue flex items-center justify-center text-xl font-bold border border-blue-200">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900">National Leagues</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Representing Edgemont High School in high school cubing leagues to compete for national titles and prizes.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: ACCOMPLISHMENTS -->
+        <section id="tab-accomplishments" class="tab-content hidden space-y-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">Major Accomplishments</h2>
+                <div class="h-1.5 w-16 bg-cube-yellow mx-auto mt-2 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Celebrating our tournaments and community impact.</p>
+            </div>
+
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <!-- Achievement 1: 2026 Competition -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border-l-8 border-l-cube-red border-y border-r border-cube-border cube-card-hover shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-cube-red border border-red-200 text-xs font-bold font-mono">
+                            <i class="fa-solid fa-crown text-[10px]"></i> 2026 FLAGSHIP EVENT
+                        </div>
+                        <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                            Hosted 2026 Competition with NA's #1 Cuber
+                        </h3>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Hosted a Competition in 2026 with <span class="text-slate-900 font-bold bg-slate-100 px-2 py-0.5 rounded">100 competitors</span>, including the <span class="text-cube-red font-bold">#1 cuber in North America</span>.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 bg-cube-subtleBg p-4 rounded-xl border border-cube-border text-center w-full md:w-32">
+                        <span class="text-2xl font-black text-cube-red block">100</span>
+                        <span class="text-[11px] text-slate-500 font-bold uppercase tracking-wider block">Competitors</span>
+                    </div>
+                </div>
+
+                <!-- Achievement 2: Cube Donation -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border-l-8 border-l-cube-blue border-y border-r border-cube-border cube-card-hover shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-cube-blue border border-blue-200 text-xs font-bold font-mono">
+                            <i class="fa-solid fa-heart text-[10px]"></i> COMMUNITY OUTREACH
+                        </div>
+                        <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                            Donated 100 Cubes to WJCS
+                        </h3>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Donated <span class="text-slate-900 font-bold bg-slate-100 px-2 py-0.5 rounded">100 cubes</span> to <span class="text-cube-blue font-bold">Westchester Jewish Community Services (WJCS)</span> to inspire learning and puzzle-solving among local youth.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 bg-cube-subtleBg p-4 rounded-xl border border-cube-border text-center w-full md:w-32">
+                        <span class="text-2xl font-black text-cube-blue block">100</span>
+                        <span class="text-[11px] text-slate-500 font-bold uppercase tracking-wider block">Cubes Donated</span>
+                    </div>
+                </div>
+
+                <!-- Achievement 3: 2024 Competition -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border-l-8 border-l-cube-green border-y border-r border-cube-border cube-card-hover shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-cube-green border border-emerald-200 text-xs font-bold font-mono">
+                            <i class="fa-solid fa-star text-[10px]"></i> 2024 TOURNAMENT
+                        </div>
+                        <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                            Hosted Inaugural 2024 Competition
+                        </h3>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            Hosted a competition of <span class="text-slate-900 font-bold bg-slate-100 px-2 py-0.5 rounded">100 competitors</span> in 2024, laying the foundation for our school's speedcubing legacy.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0 bg-cube-subtleBg p-4 rounded-xl border border-cube-border text-center w-full md:w-32">
+                        <span class="text-2xl font-black text-cube-green block">100</span>
+                        <span class="text-[11px] text-slate-500 font-bold uppercase tracking-wider block">Competitors</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: FUTURE PLANS -->
+        <section id="tab-future" class="tab-content hidden space-y-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">Future Plans</h2>
+                <div class="h-1.5 w-16 bg-cube-green mx-auto mt-2 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Looking ahead to our goals and community efforts.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Goal Card 1 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-cube-blue border-x border-b border-cube-border cube-card-hover shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-cube-blue flex items-center justify-center text-xl font-bold border border-blue-200">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-slate-900">Scholastic Cubing League</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Competing in the scholastic cubing league, taking on rival schools and representing Edgemont at the highest interscholastic levels.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-cube-blue bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 w-fit">
+                        <i class="fa-solid fa-flag text-[10px]"></i> League Target
+                    </span>
+                </div>
+
+                <!-- Goal Card 2 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-cube-orange border-x border-b border-cube-border cube-card-hover shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-50 text-cube-orange flex items-center justify-center text-xl font-bold border border-orange-200">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-slate-900">3 More Competitions</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Hosting 3 more competitions this school year to provide more opportunities for speedcubers in our area to achieve official times.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-cube-orange bg-orange-50 px-3 py-1.5 rounded-lg border border-orange-200 w-fit">
+                        <i class="fa-solid fa-bullseye text-[10px]"></i> Active Goal
+                    </span>
+                </div>
+
+                <!-- Goal Card 3 -->
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-t-cube-red border-x border-b border-cube-border cube-card-hover shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-50 text-cube-red flex items-center justify-center text-xl font-bold border border-red-200">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-slate-900">Ethan's Ohana Drive</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Raising money for Ethan's Ohana through dedicated charity cubing events and community fundraisers.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-cube-red bg-red-50 px-3 py-1.5 rounded-lg border border-red-200 w-fit">
+                        <i class="fa-solid fa-heart text-[10px]"></i> Charity Drive
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: TEAM MEMBERS -->
+        <section id="tab-team" class="tab-content hidden space-y-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">Club Members & Officers</h2>
+                <div class="h-1.5 w-16 bg-cube-red mx-auto mt-2 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">The leadership team powering Edgemont Speedcubing.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Member 1: Kristen Chu -->
+                <div class="bg-white p-8 rounded-2xl border border-cube-border cube-card-hover shadow-sm text-center space-y-4 flex flex-col items-center justify-between relative overflow-hidden">
+                    <div class="w-full h-2 bg-cube-blue absolute top-0 left-0"></div>
+                    <div class="space-y-4 w-full">
+                        <div class="w-20 h-20 rounded-2xl bg-blue-50 text-cube-blue font-display font-black text-2xl flex items-center justify-center mx-auto border-2 border-blue-200 shadow-sm">
+                            KC
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-slate-900">Kristen Chu</h3>
+                            <span class="inline-block mt-1 px-3 py-1 bg-blue-50 text-cube-blue text-xs font-bold rounded-full border border-blue-200">
+                                President of the Club
+                            </span>
+                            <div class="mt-2 text-xs font-semibold text-slate-500">
+                                Junior (11th Grade) &bull; Edgemont Jr/Sr High
+                            </div>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Leads overall club operations, league participation, and strategic vision for Edgemont Speedcubing.
+                        </p>
+                    </div>
+                    <div class="w-full pt-4 border-t border-cube-border text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                        Executive Leader
+                    </div>
+                </div>
+
+                <!-- Member 2: Christian Leung -->
+                <div class="bg-white p-8 rounded-2xl border border-cube-border cube-card-hover shadow-sm text-center space-y-4 flex flex-col items-center justify-between relative overflow-hidden">
+                    <div class="w-full h-2 bg-cube-orange absolute top-0 left-0"></div>
+                    <div class="space-y-4 w-full">
+                        <div class="w-20 h-20 rounded-2xl bg-orange-50 text-cube-orange font-display font-black text-2xl flex items-center justify-center mx-auto border-2 border-orange-200 shadow-sm">
+                            CL
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-slate-900">Christian Leung</h3>
+                            <span class="inline-block mt-1 px-3 py-1 bg-orange-50 text-cube-orange text-xs font-bold rounded-full border border-orange-200">
+                                Event Coordinator
+                            </span>
+                            <div class="mt-2 text-xs font-semibold text-slate-500">
+                                Sophomore (10th Grade) &bull; Stanford Online High School
+                            </div>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Assists in hosting competitions and events as well as gathering volunteers.
+                        </p>
+                    </div>
+                    <div class="w-full pt-4 border-t border-cube-border text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                        Events & Volunteers
+                    </div>
+                </div>
+
+                <!-- Member 3: Evie Leung -->
+                <div class="bg-white p-8 rounded-2xl border border-cube-border cube-card-hover shadow-sm text-center space-y-4 flex flex-col items-center justify-between relative overflow-hidden">
+                    <div class="w-full h-2 bg-cube-green absolute top-0 left-0"></div>
+                    <div class="space-y-4 w-full">
+                        <div class="w-20 h-20 rounded-2xl bg-emerald-50 text-cube-green font-display font-black text-2xl flex items-center justify-center mx-auto border-2 border-emerald-200 shadow-sm">
+                            EL
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-slate-900">Evie Leung</h3>
+                            <span class="inline-block mt-1 px-3 py-1 bg-emerald-50 text-cube-green text-xs font-bold rounded-full border border-emerald-200">
+                                Marketing & Social Media
+                            </span>
+                            <div class="mt-2 text-xs font-semibold text-slate-500">
+                                Senior (12th Grade) &bull; Edgemont Jr/Sr High
+                            </div>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Manages marketing and social media presence to connect with students and promote official competitions.
+                        </p>
+                    </div>
+                    <div class="w-full pt-4 border-t border-cube-border text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                        Media & Outreach
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: CONTACT -->
+        <section id="tab-contact" class="tab-content hidden space-y-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">Contact Us</h2>
+                <div class="h-1.5 w-16 bg-cube-orange mx-auto mt-2 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Reach out to our leadership team or connect with us on social media.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white p-8 sm:p-10 rounded-3xl border border-cube-border shadow-sm space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 bg-cube-subtleBg/50 rounded-2xl border border-cube-border space-y-2">
+                        <div class="flex items-center gap-2 text-cube-blue font-bold text-sm">
+                            <i class="fa-solid fa-envelope"></i> Kristen Chu (President)
+                        </div>
+                        <a href="mailto:kchu@student.edgemont.org" class="text-slate-900 font-semibold hover:text-cube-blue text-sm block break-all">
+                            kchu@student.edgemont.org
+                        </a>
+                    </div>
+
+                    <div class="p-5 bg-cube-subtleBg/50 rounded-2xl border border-cube-border space-y-2">
+                        <div class="flex items-center gap-2 text-cube-green font-bold text-sm">
+                            <i class="fa-solid fa-envelope"></i> Evie Leung (Marketing)
+                        </div>
+                        <a href="mailto:eleung@student.edgemont.org" class="text-slate-900 font-semibold hover:text-cube-green text-sm block break-all">
+                            eleung@student.edgemont.org
+                        </a>
+                    </div>
+
+                    <div class="p-5 bg-cube-subtleBg/50 rounded-2xl border border-cube-border space-y-2">
+                        <div class="flex items-center gap-2 text-cube-orange font-bold text-sm">
+                            <i class="fa-solid fa-envelope"></i> Christian Leung (Event Coordinator)
+                        </div>
+                        <a href="mailto:christianleungw@gmail.com" class="text-slate-900 font-semibold hover:text-cube-orange text-sm block break-all">
+                            christianleungw@gmail.com
+                        </a>
+                    </div>
+
+                    <div class="p-5 bg-cube-subtleBg/50 rounded-2xl border border-cube-border space-y-2">
+                        <div class="flex items-center gap-2 text-cube-red font-bold text-sm">
+                            <i class="fa-brands fa-instagram"></i> Instagram DM
+                        </div>
+                        <a href="https://instagram.com/edgemont.cubing.club" target="_blank" rel="noopener noreferrer" class="text-slate-900 font-semibold hover:text-cube-red text-sm block">
+                            @edgemont.cubing.club
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-cube-border py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="grid grid-cols-2 gap-0.5 p-0.5 bg-slate-900 rounded w-6 h-6">
+                    <div class="bg-cube-red rounded-xs"></div>
+                    <div class="bg-cube-blue rounded-xs"></div>
+                    <div class="bg-cube-yellow rounded-xs"></div>
+                    <div class="bg-cube-green rounded-xs"></div>
+                </div>
+                <span class="text-sm text-slate-700 font-bold">
+                    Edgemont High School Speedcubing Club
+                </span>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-600 font-medium">
+                <button onclick="switchTab('about')" class="hover:text-cube-blue transition">Overview</button>
+                <button onclick="switchTab('accomplishments')" class="hover:text-cube-blue transition">Accomplishments</button>
+                <button onclick="switchTab('future')" class="hover:text-cube-blue transition">Future Plans</button>
+                <button onclick="switchTab('team')" class="hover:text-cube-blue transition">Members</button>
+                <button onclick="switchTab('contact')" class="hover:text-cube-blue transition">Contact</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+
+            const buttons = document.querySelectorAll('.nav-tab');
+            buttons.forEach(btn => btn.classList.remove('tab-btn-active'));
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) {
+                activeTab.classList.remove('hidden');
+            }
+
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-btn-active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            switchTab('about');
+        });
+    </script>
+</body>
+</html>
